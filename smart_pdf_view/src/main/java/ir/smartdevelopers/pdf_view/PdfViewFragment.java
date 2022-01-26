@@ -125,6 +125,11 @@ public class PdfViewFragment extends Fragment implements ActionListener {
         if (zoom != pageZoom) {
             pageZoom = zoom;
             loadPage(mViewPager2.getCurrentItem());
+            if (pageZoom !=1.0){
+                mViewPager2.setUserInputEnabled(false);
+            }else {
+                mViewPager2.setUserInputEnabled(true);
+            }
         }
     }
 

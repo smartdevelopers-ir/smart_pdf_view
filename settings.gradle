@@ -3,6 +3,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven { url 'https://maven.ghostscript.com/' }
         jcenter() // Warning: this repository is going to shut down soon
     }
 }

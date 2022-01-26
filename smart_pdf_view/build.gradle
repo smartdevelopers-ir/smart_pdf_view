@@ -34,7 +34,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation files('libs/classes.jar')
+    if (file('../jni/build.gradle').isFile())
+        api project(':jni')
+    else
+        api 'com.artifex.mupdf:fitz:1.19.0'
 
 
 }
@@ -99,7 +102,7 @@ afterEvaluate {
 
 
 group = 'ir.smartdevelopers'
-version = '1.0.0'
+version = '1.0.2'
 
 signing {
     sign configurations.archives
