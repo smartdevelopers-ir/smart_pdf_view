@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -203,6 +205,12 @@ public class PdfViewFragment extends Fragment implements ActionListener {
     }
     protected void loadPage(int pageNumber) {
         //mProgressBar.setVisibility(View.VISIBLE);
+        if (canvasW==0 || canvasH==0){
+            new Handler(Looper.getMainLooper()).post(()->{
+                loadPage(pageNumber);
+            });
+            return;
+        }
         final float zoom = pageZoom;
         worker.add(new Worker.Task() {
             public Bitmap bitmap;
