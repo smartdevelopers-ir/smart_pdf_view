@@ -78,15 +78,7 @@ afterEvaluate {
                     }
                 }
             }
-            // Creates a Maven publication called “debug”.
-            debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                from components.debug
 
-                groupId = 'ir.smartdevelopers'
-                artifactId = 'smart-pdf-view-debug'
-//                version = '1.6'
-            }
         }
         repositories {
             maven {
