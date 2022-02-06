@@ -7,10 +7,22 @@
     >
 <androidx.viewpager2.widget.ViewPager2
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/spv_txtPageNumber"
     android:id="@+id/viewPager"
     android:orientation="vertical"
     />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/spv_txtPageNumber"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#505050"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -20,4 +32,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.artifex.mupdf.fitz.SeekableInputStream;
 import com.artifex.mupdf.fitz.android.AndroidDrawDevice;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class PdfViewFragment extends Fragment implements ActionListener {
     private ViewPager2 mViewPager2;
@@ -49,6 +51,7 @@ public class PdfViewFragment extends Fragment implements ActionListener {
     private String mMimeType;
     protected boolean wentBack;
     private ProgressBar mProgressBar;
+    private TextView txtPageNumber;
 
     public static PdfViewFragment getInstance(Uri uri) {
         Bundle bundle=new Bundle();
@@ -94,9 +97,18 @@ public class PdfViewFragment extends Fragment implements ActionListener {
         worker.start();
         mViewPager2=view.findViewById(R.id.viewPager);
         mProgressBar=view.findViewById(R.id.loading);
+        txtPageNumber=view.findViewById(R.id.spv_txtPageNumber);
         mAdapter=new PdfAdapter(this,1);
         mViewPager2.setAdapter(mAdapter);
-
+        mViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+               mCurrentPage=position+1;
+               if (pageCount!=0){
+                   updatePageNumber();
+               }
+            }
+        });
         openDocument();
     }
     public void onPageViewSizeChanged(int w, int h) {
@@ -241,6 +253,7 @@ public class PdfViewFragment extends Fragment implements ActionListener {
                 if (bitmap != null) {
                     mAdapter.setBitmap(pageNumber, bitmap, zoom, wentBack, links, hits);
                     mProgressBar.setVisibility(View.GONE);
+                    updatePageNumber();
                 }
                 // pageLabel.setText((currentPage+1) + " / " + pageCount);
                 // pageSeekbar.setMax(pageCount - 1);
@@ -250,5 +263,8 @@ public class PdfViewFragment extends Fragment implements ActionListener {
 
             }
         });
+    }
+    void updatePageNumber(){
+        txtPageNumber.setText(String.format(new Locale("en"),"(%2d/%2d)",mCurrentPage,pageCount));
     }
 }

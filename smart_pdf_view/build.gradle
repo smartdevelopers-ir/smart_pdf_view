@@ -94,7 +94,7 @@ afterEvaluate {
 
 
 group = 'ir.smartdevelopers'
-version = '1.0.5'
+version = '1.0.6'
 
 signing {
     sign configurations.archives
